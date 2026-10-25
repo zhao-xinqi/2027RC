@@ -1,0 +1,27 @@
+# ==========================================================
+# GrandRDK Python 风格与静态检查配置（ruff）
+# 基础: PEP 8 + 常用扩展规则
+# 格式化: ruff format .
+# 检查: ruff check .
+# ==========================================================
+line-length = 120          # 单行最大 120 列（项目统一放宽于 PEP 8 的 79）
+target-version = "py311"   # 最低支持 Python 版本
+indent-width = 4
+extend-exclude = ["build", "dist", ".venv"]
+
+[lint]
+select = [
+  "E",   # pycodestyle 错误
+  "F",   # pyflakes 未定义/未使用
+  "W",   # pycodestyle 警告
+  "I",   # isort 导入排序
+  "N",   # pep8-naming 命名
+  "UP",  # pyupgrade 现代语法
+  "B",   # bugbear 常见陷阱
+  "SIM", # 简化写法
+  "C4",  # 不必要的推导式
+]
+ignore = ["E501"]  # 行长由 line-length 统一管理，不逐行豁免
+
+[lint.isort]
+known-first-party = ["grandrdk"]

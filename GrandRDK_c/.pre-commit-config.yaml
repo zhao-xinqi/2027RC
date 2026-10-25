@@ -1,0 +1,31 @@
+# ==========================================================
+# GrandRDK 提交前检查（pre-commit）
+# 安装: pip install pre-commit && pre-commit install
+# 手动运行全部检查: pre-commit run --all-files
+# 说明: 所有提交必须通过以下钩子，CI 中同样执行。
+# ==========================================================
+repos:
+  # ---------- 通用钩子 ----------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace          # 禁止行尾空白
+      - id: end-of-file-fixer            # 文件末尾统一换行
+      - id: check-yaml                   # YAML 语法校验
+      - id: check-json                   # JSON 语法校验
+      - id: check-added-large-files      # 禁止提交大文件（默认 500KB）
+      - id: check-merge-conflict         # 禁止提交未解决的冲突标记
+
+  # ---------- C/C++ 格式化 ----------
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v17.0.6
+    hooks:
+      - id: clang-format                 # 按 .clang-format 校验并格式化
+
+  # ---------- Python 检查与格式化 ----------
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff                         # 静态检查（自动修复可修复项）
+        args: [--fix]
+      - id: ruff-format                  # 按 .ruff.toml 格式化

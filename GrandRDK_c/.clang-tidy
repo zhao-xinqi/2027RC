@@ -1,0 +1,30 @@
+# ==========================================================
+# GrandRDK C/C++ 静态检查配置（clang-tidy）
+# 运行: clang-tidy -p build/compile_commands.json src/...
+# 说明: 默认启用编译器诊断、静态分析器与四大实践性检查族，
+#       按仓库实际需要增删条目，须经 code owner 评审。
+# ==========================================================
+Checks: >
+  clang-diagnostic-*,
+  clang-analyzer-*,
+  bugprone-*,
+  performance-*,
+  readability-*,
+  modernize-*,
+  -readability-magic-numbers,
+  -modernize-use-trailing-return-type,
+  -modernize-use-auto
+
+# 禁止把 warning 直接升级为 error（由 CI 统一把关）
+WarningsAsErrors: ''
+
+# 仅检查本项目头文件，避免误报第三方头文件
+HeaderFilterRegex: '(src|include)/.*'
+
+FormatStyle: file
+
+CheckOptions:
+  readability-identifier-naming.ClassCase: CamelCase
+  readability-identifier-naming.FunctionCase: lower_case
+  readability-identifier-naming.VariableCase: lower_case
+  readability-identifier-naming.ConstantCase: UPPER_CASE

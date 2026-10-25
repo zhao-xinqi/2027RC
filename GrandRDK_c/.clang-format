@@ -1,0 +1,68 @@
+# ==========================================================
+# GrandRDK C/C++ 代码格式化配置（clang-format）
+# 基础: Google C++ Style 定制版（以 .clang-format 为准，覆盖上游默认）
+# 校验: clang-format --dry-run --Werror <file>
+# 自动格式化: clang-format -i <file>
+# ==========================================================
+BasedOnStyle: Google
+Language: Cpp
+
+# ---------- 缩进与行长 ----------
+IndentWidth: 4                     # 块缩进 4 空格
+ContinuationIndentWidth: 4         # 续行缩进 4 空格
+ColumnLimit: 100                   # 单行最大 100 列，超出必须换行
+IndentCaseLabels: true
+NamespaceIndentation: None         # namespace 内不额外缩进
+
+# ---------- 花括号风格 ----------
+# 函数 / 类 / 结构体 / 枚举定义: 花括号另起一行（Allman 风格）
+# 控制语句 (if/for/while/switch): 花括号跟随语句同行（1TBS 风格）
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterClass: true
+  AfterFunction: true
+  AfterStruct: true
+  AfterEnum: true
+  AfterUnion: true
+  AfterExternBlock: true
+  AfterControlStatement: Never
+  BeforeElse: false
+  BeforeCatch: false
+  BeforeLambdaBody: false
+
+# 禁止把短函数 / 短 if 压成单行
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# ---------- 指针与引用 ----------
+PointerAlignment: Left             # int* p;（星号靠类型）
+ReferenceAlignment: Pointer
+DerivePointerAlignment: false
+
+# ---------- 头文件包含排序 ----------
+SortIncludes: CaseSensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^"(src|include|grandrdk)/'   # 1. 本项目相对头文件
+    Priority: 1
+  - Regex: '^"'                          # 2. 其他引号头文件
+    Priority: 2
+  - Regex: '^<'                          # 3. 系统 / 第三方尖括号头文件
+    Priority: 3
+
+# ---------- 对齐与空白 ----------
+AlignAfterOpenBracket: Align
+AlignOperands: Align
+AlignTrailingComments: true
+SpacesBeforeTrailingComments: 2
+AllowAllArgumentsOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: true
+BinPackArguments: false
+BinPackParameters: false
+
+# ---------- 其他 ----------
+Standard: c++17
+Cpp11BracedListStyle: true
+DeriveLineEnding: false
+UseTab: Never
